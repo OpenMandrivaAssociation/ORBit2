@@ -4,9 +4,10 @@
 %define lib_major	0
 %define api_version 2.0
 %define lib_name	%mklibname %{name}_ %{lib_major}
+%define develname %mklibname -d %name
 
 Name:		ORBit2
-Version: 2.14.8
+Version: 2.14.9
 Release: %mkrel 1
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPL
@@ -62,7 +63,7 @@ This package contains all core libraries of the ORBit implementation
 of CORBA technology.
 
 
-%package -n %{lib_name}-devel
+%package -n %develname
 Summary:	Development libraries, header files and utilities for ORBit
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
@@ -74,8 +75,9 @@ Requires:	popt-devel
 # needed for orbit-idl-2
 Requires:   indent
 Conflicts:	ORBit-devel < 0.5.10
+Obsoletes: %mklibname -d %{name}_ 0
 
-%description -n %{lib_name}-devel
+%description -n %develname
 This package contains the header files, libraries and utilities
 necessary to write programs that use CORBA technology. If you want to
 write such programs, you'll also need to install the ORBit package.
@@ -129,9 +131,9 @@ rm -rf %{buildroot}
 
 %files -n %{lib_name}
 %defattr(-,root,root,755)
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*-2.so.0*
 
-%files -n %{lib_name}-devel
+%files -n %develname
 %defattr(-,root,root,755)
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/orbit2-config
