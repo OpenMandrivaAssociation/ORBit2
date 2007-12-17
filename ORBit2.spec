@@ -13,7 +13,6 @@ Summary:	High-performance CORBA Object Request Broker
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/ORBit2/
-Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
