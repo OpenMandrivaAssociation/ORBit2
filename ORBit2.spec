@@ -1,5 +1,5 @@
 %define req_glib_version	2.0.0
-%define req_libidl_version	0.7.4
+%define req_libidl_version	0.8.10
 
 %define lib_major	0
 %define api_version 2.0
@@ -7,7 +7,7 @@
 %define develname %mklibname -d %name
 
 Name:		ORBit2
-Version: 2.14.11
+Version: 2.14.12
 Release: %mkrel 1
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPL
