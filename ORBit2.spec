@@ -8,7 +8,7 @@
 
 Name:		ORBit2
 Version: 2.14.12
-Release: %mkrel 1
+Release: %mkrel 2
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPL
 Group:		Graphical desktop/GNOME
@@ -45,7 +45,7 @@ the ORBit implementation of CORBA technology.
 
 %package -n %{lib_name}
 Summary:	High-performance CORBA Object Request Broker
-Group:		Graphical desktop/GNOME
+Group:		System/Libraries
 Provides:	lib%{name} = %{version}-%{release}
 Requires:	%{name} >= %{version}
 Requires:	libglib2 >= %{req_glib_version}
