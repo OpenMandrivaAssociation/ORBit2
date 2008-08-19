@@ -7,10 +7,10 @@
 %define develname %mklibname -d %name
 
 Name:		ORBit2
-Version: 2.14.13
-Release: %mkrel 2
+Version: 2.14.14
+Release: %mkrel 1
 Summary:	High-performance CORBA Object Request Broker
-License:	LGPL
+License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/ORBit2/
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
