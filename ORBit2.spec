@@ -7,7 +7,7 @@
 %define develname %mklibname -d %name
 
 Name:		ORBit2
-Version: 2.14.14
+Version: 2.14.15
 Release: %mkrel 2
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
@@ -18,9 +18,6 @@ Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
 Patch0:		ORBit2-2.14.4-tmpdir.patch
-# (fc) 2.14.14-2mdv fix chown on socket when beeing root (Mike Gorse)
-Patch1:		ORBit2-2.14.14-chown.patch
-
 BuildConflicts:	ORBit-devel < 0.5.10
 BuildRequires:	indent bison flex popt-devel >= 1.5
 BuildRequires:	glib2-devel >= %{req_glib_version}
@@ -88,7 +85,6 @@ write such programs, you'll also need to install the ORBit package.
 %prep
 %setup -q
 %patch0 -p1 -b .tmpdir
-%patch1 -p1 -b .chown
 
 %build
 
