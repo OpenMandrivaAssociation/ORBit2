@@ -8,7 +8,7 @@
 
 Name:		ORBit2
 Version: 2.14.17
-Release: %mkrel 1
+Release: %mkrel 2
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
@@ -70,7 +70,6 @@ Requires:	%{lib_name} = %{version}
 Requires:	%{name} = %{version}
 Requires:	libglib2-devel >= %{req_glib_version}
 Requires:	libIDL2-devel >= %{req_libidl_version}
-Requires:	popt-devel
 # needed for orbit-idl-2
 Requires:   indent
 Conflicts:	ORBit-devel < 0.5.10
