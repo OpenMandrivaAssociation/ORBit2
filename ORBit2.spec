@@ -8,7 +8,7 @@
 
 Name:		ORBit2
 Version: 2.14.18
-Release: %mkrel 1
+Release: %mkrel 2
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
