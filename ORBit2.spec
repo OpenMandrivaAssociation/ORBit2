@@ -8,7 +8,7 @@
 
 Name:		ORBit2
 Version: 2.14.19
-Release: %mkrel 1
+Release: %mkrel 2
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
@@ -139,7 +139,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,755)
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/orbit2-config
-%multiarch %{multiarch_bindir}/orbit2-config
+%{multiarch_bindir}/orbit2-config
 %{_bindir}/orbit-idl-2
 %{_datadir}/aclocal/*.m4
 %{_includedir}/*
