@@ -102,6 +102,7 @@ rm -rf %{buildroot}
 
 # multiarch policy
 %multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/orbit2-config
+
 %multiarch_includes $RPM_BUILD_ROOT%{_includedir}/orbit-%{api_version}/orbit/orbit-config.h
 
 # Rename doc to prevent name conflict
