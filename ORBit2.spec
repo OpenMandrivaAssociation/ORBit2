@@ -23,7 +23,7 @@ BuildRequires:	indent
 BuildRequires:	bison
 BuildRequires:	flex
 BUildRequires:	popt-devel >= 1.5
-BuildRequires:	pkgconfig(glibi-2.0) >= %{req_glib_version}
+BuildRequires:	pkgconfig(glib-2.0) >= %{req_glib_version}
 BuildRequires:	pkgconfig(libIDL-2.0) >= %{req_libidl_version}
 BuildRequires:  gtk-doc
 Requires:	%{lib_name} = %{version}-%{release}
@@ -81,7 +81,7 @@ write such programs, you'll also need to install the ORBit package.
 
 %prep
 %setup -q
-%patch0 -p1 -b .tmpdir
+%apply_patches
 
 %build
 
@@ -90,8 +90,7 @@ write such programs, you'll also need to install the ORBit package.
 	--enable-purify \
 	--disable-static
 
-#parallel build is broken
-make
+%make
 
 %check
 make check
