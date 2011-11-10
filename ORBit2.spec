@@ -4,30 +4,32 @@
 %define lib_major	0
 %define api_version 2.0
 %define lib_name	%mklibname %{name}_ %{lib_major}
-%define develname %mklibname -d %name
+%define develname	%mklibname -d %name
 
 Name:		ORBit2
-Version: 2.14.19
-Release: %mkrel 2
+Version:	2.14.19
+Release:	3
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/ORBit2/
-Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
 Patch0:		ORBit2-2.14.4-tmpdir.patch
+
 BuildConflicts:	ORBit-devel < 0.5.10
-BuildRequires:	indent bison flex popt-devel >= 1.5
-BuildRequires:	glib2-devel >= %{req_glib_version}
-BuildRequires:	libIDL2-devel >= %{req_libidl_version}
+BuildRequires:	indent
+BuildRequires:	bison
+BuildRequires:	flex
+BUildRequires:	popt-devel >= 1.5
+BuildRequires:	pkgconfig(glibi-2.0) >= %{req_glib_version}
+BuildRequires:	pkgconfig(libIDL-2.0) >= %{req_libidl_version}
 BuildRequires:  gtk-doc
-Requires:	%{lib_name} = %{version}
-Requires:	libIDL2 >= %{req_libidl_version}
-Obsoletes: linc < 1:1.0.3
+Requires:	%{lib_name} = %{version}-%{release}
+
+%rename	linc
 Conflicts: %{_lib}linc1
-Provides: linc
 
 %description
 ORBit is a high-performance CORBA (Common Object Request Broker
@@ -46,8 +48,6 @@ the ORBit implementation of CORBA technology.
 Summary:	High-performance CORBA Object Request Broker
 Group:		System/Libraries
 Provides:	lib%{name} = %{version}-%{release}
-Requires:	%{name} >= %{version}
-Requires:	libglib2 >= %{req_glib_version}
 
 %description -n %{lib_name}
 ORBit is a high-performance CORBA (Common Object Request Broker
@@ -68,8 +68,6 @@ Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{lib_name} = %{version}
 Requires:	%{name} = %{version}
-Requires:	libglib2-devel >= %{req_glib_version}
-Requires:	libIDL2-devel >= %{req_libidl_version}
 # needed for orbit-idl-2
 Requires:   indent
 Conflicts:	ORBit-devel < 0.5.10
@@ -87,7 +85,10 @@ write such programs, you'll also need to install the ORBit package.
 
 %build
 
-%configure2_5x --enable-gtk-doc --enable-purify
+%configure2_5x \
+	--enable-gtk-doc \
+	--enable-purify \
+	--disable-static
 
 #parallel build is broken
 make
@@ -97,33 +98,18 @@ make check
 
 %install
 rm -rf %{buildroot}
-
 %makeinstall_std
+find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 
 # multiarch policy
-%multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/orbit2-config
+%multiarch_binaries %{buildroot}%{_bindir}/orbit2-config
 
-%multiarch_includes $RPM_BUILD_ROOT%{_includedir}/orbit-%{api_version}/orbit/orbit-config.h
+%multiarch_includes %{buildroot}%{_includedir}/orbit-%{api_version}/orbit/orbit-config.h
 
 # Rename doc to prevent name conflict
 cp src/services/name/README README.service-name
 
-# remove unpackaged files
-rm -f $RPM_BUILD_ROOT%{_libdir}/orbit-%{api_version}/*.a
-
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %{lib_name} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{lib_name} -p /sbin/ldconfig
-%endif
-
 %files
-%defattr(-,root,root,755)
 %doc README.service-name AUTHORS NEWS MAINTAINERS README
 %{_bindir}/linc-cleanup-sockets
 %{_bindir}/ior-decode-2
@@ -133,11 +119,9 @@ rm -rf %{buildroot}
 %{_libdir}/orbit-%{api_version}/Everything_module.so
 
 %files -n %{lib_name}
-%defattr(-,root,root,755)
-%{_libdir}/lib*-2.so.0*
+%{_libdir}/lib*-2.so.%{major}*
 
 %files -n %develname
-%defattr(-,root,root,755)
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/orbit2-config
 %{multiarch_bindir}/orbit2-config
@@ -145,9 +129,6 @@ rm -rf %{buildroot}
 %{_datadir}/aclocal/*.m4
 %{_includedir}/*
 %{_libdir}/lib*.so
-%{_libdir}/lib*.a
-%attr(644,root,root) %{_libdir}/lib*.la
 %{_libdir}/pkgconfig/*.pc
-%attr(644,root,root) %{_libdir}/orbit-%{api_version}/Everything_module.la
 
 
