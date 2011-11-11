@@ -83,6 +83,11 @@ write such programs, you'll also need to install the ORBit package.
 %setup -q
 %apply_patches
 
+
+# this is a hack for glib2.0 >= 2.31.0
+sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
+    ./linc2/src/Makefile.*
+
 %build
 
 %configure2_5x \
@@ -118,7 +123,7 @@ cp src/services/name/README README.service-name
 %{_libdir}/orbit-%{api_version}/Everything_module.so
 
 %files -n %{lib_name}
-%{_libdir}/lib*-2.so.%{major}*
+%{_libdir}/lib*-2.so.%{lib_major}*
 
 %files -n %develname
 %doc %{_datadir}/gtk-doc/html/*
@@ -128,6 +133,7 @@ cp src/services/name/README README.service-name
 %{_datadir}/aclocal/*.m4
 %{_includedir}/*
 %{_libdir}/lib*.so
+%{_libdir}/libname-server-2.a
 %{_libdir}/pkgconfig/*.pc
 
 
