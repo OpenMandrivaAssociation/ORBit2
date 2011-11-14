@@ -4,7 +4,7 @@
 %define lib_major	0
 %define api_version 2.0
 %define lib_name	%mklibname %{name}_ %{lib_major}
-%define develname	%mklibname -d %name
+%define develname	%mklibname -d %{name}
 
 Name:		ORBit2
 Version:	2.14.19
@@ -17,8 +17,9 @@ URL:		http://www.gnome.org/projects/ORBit2/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
 Patch0:		ORBit2-2.14.4-tmpdir.patch
+# handle ref leaks in the a11y stack more gracefully
+Patch1:     ORBit2-2.14.3-ref-leaks.patch
 
-BuildConflicts:	ORBit-devel < 0.5.10
 BuildRequires:	indent
 BuildRequires:	bison
 BuildRequires:	flex
@@ -28,8 +29,6 @@ BuildRequires:	pkgconfig(libIDL-2.0) >= %{req_libidl_version}
 BuildRequires:  gtk-doc
 Requires:	%{lib_name} = %{version}-%{release}
 
-%rename	linc
-Conflicts: %{_lib}linc1
 
 %description
 ORBit is a high-performance CORBA (Common Object Request Broker
@@ -62,18 +61,16 @@ This package contains all core libraries of the ORBit implementation
 of CORBA technology.
 
 
-%package -n %develname
+%package -n %{develname}
 Summary:	Development libraries, header files and utilities for ORBit
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
-Requires:	%{lib_name} = %{version}
-Requires:	%{name} = %{version}
+Requires:	%{lib_name} = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 # needed for orbit-idl-2
 Requires:   indent
-Conflicts:	ORBit-devel < 0.5.10
-Obsoletes: %mklibname -d %{name}_ 0
 
-%description -n %develname
+%description -n %{develname}
 This package contains the header files, libraries and utilities
 necessary to write programs that use CORBA technology. If you want to
 write such programs, you'll also need to install the ORBit package.
@@ -135,5 +132,4 @@ cp src/services/name/README README.service-name
 %{_libdir}/lib*.so
 %{_libdir}/libname-server-2.a
 %{_libdir}/pkgconfig/*.pc
-
 
