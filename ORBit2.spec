@@ -18,7 +18,9 @@ Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
 Patch0:		ORBit2-2.14.4-tmpdir.patch
 # handle ref leaks in the a11y stack more gracefully
-Patch1:     ORBit2-2.14.3-ref-leaks.patch
+Patch1:		ORBit2-2.14.3-ref-leaks.patch
+# bumps tolerance up from 50 to 200kb
+Patch2:		ORBit2-2.14.19_test-mem_tolerance.patch
 
 BuildRequires:	indent
 BuildRequires:	bison
@@ -122,7 +124,7 @@ cp src/services/name/README README.service-name
 %files -n %{lib_name}
 %{_libdir}/lib*-2.so.%{lib_major}*
 
-%files -n %develname
+%files -n %{develname}
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/orbit2-config
 %{multiarch_bindir}/orbit2-config
