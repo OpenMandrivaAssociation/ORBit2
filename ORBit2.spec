@@ -25,7 +25,7 @@ BuildRequires:	flex
 BuildRequires:  gtk-doc
 BuildRequires:	pkgconfig(glib-2.0) >= 2.0.0
 BuildRequires:	pkgconfig(libIDL-2.0) >= 0.8.10
-BUildRequires:	pkgconf(popt) >= 1.5
+BUildRequires:	pkgconfig(popt) >= 1.5
 Requires:	%{lib_name} = %{version}-%{release}
 
 
