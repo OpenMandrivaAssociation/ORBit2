@@ -1,6 +1,3 @@
-%define req_glib_version	2.0.0
-%define req_libidl_version	0.8.10
-
 %define lib_major	0
 %define api_version 2.0
 %define lib_name	%mklibname %{name}_ %{lib_major}
@@ -8,7 +5,7 @@
 
 Name:		ORBit2
 Version:	2.14.19
-Release:	3
+Release:	4
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
@@ -25,10 +22,10 @@ Patch2:		ORBit2-2.14.19_test-mem_tolerance.patch
 BuildRequires:	indent
 BuildRequires:	bison
 BuildRequires:	flex
-BUildRequires:	popt-devel >= 1.5
-BuildRequires:	pkgconfig(glib-2.0) >= %{req_glib_version}
-BuildRequires:	pkgconfig(libIDL-2.0) >= %{req_libidl_version}
 BuildRequires:  gtk-doc
+BuildRequires:	pkgconfig(glib-2.0) >= 2.0.0
+BuildRequires:	pkgconfig(libIDL-2.0) >= 0.8.10
+BUildRequires:	pkgconf(popt) >= 1.5
 Requires:	%{lib_name} = %{version}-%{release}
 
 
@@ -68,7 +65,6 @@ Summary:	Development libraries, header files and utilities for ORBit
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{lib_name} = %{version}-%{release}
-Requires:	%{name} = %{version}-%{release}
 # needed for orbit-idl-2
 Requires:   indent
 
@@ -117,7 +113,6 @@ cp src/services/name/README README.service-name
 %{_bindir}/linc-cleanup-sockets
 %{_bindir}/ior-decode-2
 %{_bindir}/typelib-dump
-%{_datadir}/idl/orbit-%{api_version}
 %dir %{_libdir}/orbit-%{api_version}
 %{_libdir}/orbit-%{api_version}/Everything_module.so
 
@@ -130,6 +125,7 @@ cp src/services/name/README README.service-name
 %{multiarch_bindir}/orbit2-config
 %{_bindir}/orbit-idl-2
 %{_datadir}/aclocal/*.m4
+%{_datadir}/idl/orbit-%{api_version}
 %{_includedir}/*
 %{_libdir}/lib*.so
 %{_libdir}/libname-server-2.a
