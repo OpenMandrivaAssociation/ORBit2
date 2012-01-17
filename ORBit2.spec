@@ -1,6 +1,6 @@
-%define lib_major	0
-%define api_version 2.0
-%define lib_name	%mklibname %{name}_ %{lib_major}
+%define major	0
+%define api 2.0
+%define libname	%mklibname %{name}_ %{major}
 %define develname	%mklibname -d %{name}
 
 Name:		ORBit2
@@ -20,14 +20,11 @@ Patch1:		ORBit2-2.14.3-ref-leaks.patch
 Patch2:		ORBit2-2.14.19_test-mem_tolerance.patch
 
 BuildRequires:	indent
-BuildRequires:	bison
-BuildRequires:	flex
 BuildRequires:  gtk-doc
 BuildRequires:	pkgconfig(glib-2.0) >= 2.0.0
 BuildRequires:	pkgconfig(libIDL-2.0) >= 0.8.10
 BUildRequires:	pkgconfig(popt) >= 1.5
-Requires:	%{lib_name} = %{version}-%{release}
-
+Requires:	%{libname} = %{version}-%{release}
 
 %description
 ORBit is a high-performance CORBA (Common Object Request Broker
@@ -41,13 +38,11 @@ run on.
 You will need to install this package if you want to run programs that use
 the ORBit implementation of CORBA technology.
 
-
-%package -n %{lib_name}
+%package -n %{libname}
 Summary:	High-performance CORBA Object Request Broker
 Group:		System/Libraries
-Provides:	lib%{name} = %{version}-%{release}
 
-%description -n %{lib_name}
+%description -n %{libname}
 ORBit is a high-performance CORBA (Common Object Request Broker
 Architecture) ORB (object request broker). It allows programs to
 send requests and receive replies from other programs, regardless
@@ -59,12 +54,11 @@ run on.
 This package contains all core libraries of the ORBit implementation
 of CORBA technology.
 
-
 %package -n %{develname}
 Summary:	Development libraries, header files and utilities for ORBit
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
-Requires:	%{lib_name} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 # needed for orbit-idl-2
 Requires:   indent
 
@@ -73,18 +67,15 @@ This package contains the header files, libraries and utilities
 necessary to write programs that use CORBA technology. If you want to
 write such programs, you'll also need to install the ORBit package.
 
-
 %prep
 %setup -q
 %apply_patches
-
 
 # this is a hack for glib2.0 >= 2.31.0
 sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
     ./linc2/src/Makefile.*
 
 %build
-
 %configure2_5x \
 	--enable-gtk-doc \
 	--enable-purify \
@@ -103,7 +94,7 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 # multiarch policy
 %multiarch_binaries %{buildroot}%{_bindir}/orbit2-config
 
-%multiarch_includes %{buildroot}%{_includedir}/orbit-%{api_version}/orbit/orbit-config.h
+%multiarch_includes %{buildroot}%{_includedir}/orbit-%{api}/orbit/orbit-config.h
 
 # Rename doc to prevent name conflict
 cp src/services/name/README README.service-name
@@ -113,11 +104,11 @@ cp src/services/name/README README.service-name
 %{_bindir}/linc-cleanup-sockets
 %{_bindir}/ior-decode-2
 %{_bindir}/typelib-dump
-%dir %{_libdir}/orbit-%{api_version}
-%{_libdir}/orbit-%{api_version}/Everything_module.so
+%dir %{_libdir}/orbit-%{api}
+%{_libdir}/orbit-%{api}/Everything_module.so
 
-%files -n %{lib_name}
-%{_libdir}/lib*-2.so.%{lib_major}*
+%files -n %{libname}
+%{_libdir}/lib*-2.so.%{major}*
 
 %files -n %{develname}
 %doc %{_datadir}/gtk-doc/html/*
@@ -125,7 +116,7 @@ cp src/services/name/README README.service-name
 %{multiarch_bindir}/orbit2-config
 %{_bindir}/orbit-idl-2
 %{_datadir}/aclocal/*.m4
-%{_datadir}/idl/orbit-%{api_version}
+%{_datadir}/idl/orbit-%{api}
 %{_includedir}/*
 %{_libdir}/lib*.so
 %{_libdir}/libname-server-2.a
