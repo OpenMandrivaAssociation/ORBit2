@@ -1,16 +1,17 @@
 %define major	0
 %define api 2.0
-%define libname	%mklibname %{name}_ %{major}
-%define develname	%mklibname -d %{name}
+%define libname			%mklibname %{name}_ %{major}
+%define libimodule		%mklibname ORBit-imodule2_ %{major}
+%define libCosNaming	%mklibname ORBit-CosNaming2_ %{major}
+%define develname		%mklibname -d %{name}
 
 Name:		ORBit2
 Version:	2.14.19
-Release:	4
+Release:	5
 Summary:	High-performance CORBA Object Request Broker
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/ORBit2/
-
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
 Patch0:		ORBit2-2.14.4-tmpdir.patch
@@ -43,15 +44,25 @@ Summary:	High-performance CORBA Object Request Broker
 Group:		System/Libraries
 
 %description -n %{libname}
-ORBit is a high-performance CORBA (Common Object Request Broker
-Architecture) ORB (object request broker). It allows programs to
-send requests and receive replies from other programs, regardless
-of the locations of the two programs. CORBA is an architecture that
-enables communication between program objects, regardless of the
-programming language they're written in or the operating system they
-run on.
+This package contains core library of the ORBit implementation
+of CORBA technology.
 
-This package contains all core libraries of the ORBit implementation
+%package -n %{libimodule}
+Summary:	High-performance CORBA Object Request Broker
+Group:		System/Libraries
+Conflicts:	%{_lib}ORBit2_0 < 2.14.19-5
+
+%description -n %{libimodule}
+This package contains imodule library of the ORBit implementation
+of CORBA technology.
+
+%package -n %{libCosNaming}
+Summary:	High-performance CORBA Object Request Broker
+Group:		System/Libraries
+Conflicts:	%{_lib}ORBit2_0 < 2.14.19-5
+
+%description -n %{libCosNaming}
+This package contains CosNaming library of the ORBit implementation
 of CORBA technology.
 
 %package -n %{develname}
@@ -59,6 +70,8 @@ Summary:	Development libraries, header files and utilities for ORBit
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
+Requires:	%{libimodule} = %{version}-%{release}
+Requires:	%{libCosNaming} = %{version}-%{release}
 # needed for orbit-idl-2
 Requires:   indent
 
@@ -108,7 +121,13 @@ cp src/services/name/README README.service-name
 %{_libdir}/orbit-%{api}/Everything_module.so
 
 %files -n %{libname}
-%{_libdir}/lib*-2.so.%{major}*
+%{_libdir}/libORBit-2.so.%{major}*
+
+%files -n %{libimodule}
+%{_libdir}/libORBit-imodule-2.so.%{major}*
+
+%files -n %{libCosNaming}
+%{_libdir}/libORBitCosNaming-2.so.%{major}*
 
 %files -n %{develname}
 %doc %{_datadir}/gtk-doc/html/*
