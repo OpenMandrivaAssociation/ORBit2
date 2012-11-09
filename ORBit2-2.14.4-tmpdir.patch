@@ -1,0 +1,22 @@
+--- ORBit2-2.14.4/src/orb/GIOP/giop.c.tmpdir	2006-10-17 13:49:41.000000000 +0200
++++ ORBit2-2.14.4/src/orb/GIOP/giop.c	2006-12-18 10:39:36.000000000 +0100
+@@ -82,9 +82,16 @@
+ 	g_return_val_if_fail (prefix != NULL, NULL);
+ 	
+ 	dirh = g_dir_open (dir, 0, NULL);
+-	if (!dirh)
+-		return NULL;
+-
++ 	if (!dirh) { /* try prefix, just in case */
++ 	  cur_dir = g_strconcat (dir, "/", prefix, NULL);
++ 	  if (test_safe_socket_dir (cur_dir)) {
++ 	    return cur_dir;
++ 	  }
++ 	  else {
++ 	    g_free (cur_dir);
++ 	    return NULL;
++ 	  }
++ 	}
+ 	prefix_with_hyphen = g_strdup_printf ("%s-", prefix);
+ 	prefix_len = strlen (prefix_with_hyphen);
+ 

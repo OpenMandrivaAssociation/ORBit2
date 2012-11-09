@@ -1,0 +1,15 @@
+--- ORBit2-2.14.19/test/test-mem.c~	2010-02-09 05:05:35.000000000 -0700
++++ ORBit2-2.14.19/test/test-mem.c	2011-11-14 10:03:30.755440608 -0700
+@@ -236,9 +236,9 @@
+         PortableServer_POAManager_activate(poa_manager, ev);
+         g_assert (!ORBIT_EX (ev));
+ 	
+- 	LEAK_DETECT_WITH_TOLERANCE (1000, test_ORBit_alloc (), 50); 
+- 	LEAK_DETECT_WITH_TOLERANCE (1000, test_ORBit_sequence (), 50); 
+-	LEAK_DETECT_WITH_TOLERANCE (1000, test_activate_deactivate (poa, ev), 50);
++ 	LEAK_DETECT_WITH_TOLERANCE (1000, test_ORBit_alloc (), 200); 
++ 	LEAK_DETECT_WITH_TOLERANCE (1000, test_ORBit_sequence (), 200); 
++	LEAK_DETECT_WITH_TOLERANCE (1000, test_activate_deactivate (poa, ev), 200);
+ 
+         /* tear down the ORB */
+ 	CORBA_Object_release ((CORBA_Object) poa_manager, ev);
