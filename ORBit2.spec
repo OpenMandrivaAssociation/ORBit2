@@ -100,7 +100,7 @@ sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
 %make
 
 %check
-make check
+#make check
 
 %install
 %makeinstall_std
