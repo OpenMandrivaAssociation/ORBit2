@@ -91,7 +91,7 @@ sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
     ./linc2/src/Makefile.*
 
 %build
-%configure2_5x \
+%configure \
 	--enable-gtk-doc \
 	--enable-purify \
 	--disable-static
