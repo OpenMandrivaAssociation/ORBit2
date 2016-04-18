@@ -1,4 +1,5 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
+%define _disable_lto 1
 
 %define apiver	2.0
 %define api 	2
@@ -11,7 +12,7 @@
 Summary:	High-performance CORBA Object Request Broker
 Name:		ORBit2
 Version:	2.14.19
-Release:	20
+Release:	21
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://www.gnome.org/projects/ORBit2/
@@ -91,6 +92,7 @@ sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
     ./linc2/src/Makefile.*
 
 %build
+export CC=gcc
 %configure \
 	--enable-gtk-doc \
 	--enable-purify \
