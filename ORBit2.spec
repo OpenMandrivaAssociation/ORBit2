@@ -94,22 +94,16 @@ sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
 %build
 export CC=gcc
 %configure \
-	--enable-gtk-doc \
 	--enable-purify \
 	--disable-static
 
-%make
+%make_build
 
 #check
 #make check
 
 %install
-%makeinstall_std
-
-# multiarch policy
-%multiarch_binaries %{buildroot}%{_bindir}/orbit2-config
-
-%multiarch_includes %{buildroot}%{_includedir}/orbit-%{apiver}/orbit/orbit-config.h
+%make_install
 
 # Rename doc to prevent name conflict
 cp src/services/name/README README.service-name
@@ -134,7 +128,7 @@ cp src/services/name/README README.service-name
 %files -n %{devname}
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/orbit2-config
-%{multiarch_bindir}/orbit2-config
+%{_bindir}/orbit2-config
 %{_bindir}/orbit-idl-%{api}
 %{_datadir}/aclocal/*.m4
 %{_datadir}/idl/orbit-%{apiver}
