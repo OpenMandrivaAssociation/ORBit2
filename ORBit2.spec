@@ -92,7 +92,7 @@ sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
     ./linc2/src/Makefile.*
 
 %build
-export CC=gcc
+#export CC=gcc
 %configure \
 	--enable-purify \
 	--disable-static
