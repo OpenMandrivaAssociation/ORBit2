@@ -85,7 +85,7 @@ write such programs, you'll also need to install the ORBit package.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 # this is a hack for glib2.0 >= 2.31.0
 sed -i -e 's/-DG_DISABLE_DEPRECATED//g' \
