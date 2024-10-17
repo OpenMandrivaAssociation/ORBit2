@@ -15,7 +15,7 @@ Version:	2.14.19
 Release:	22
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
-Url:		http://www.gnome.org/projects/ORBit2/
+Url:		https://www.gnome.org/projects/ORBit2/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ORBit2/%{url_ver}/%{name}-%{version}.tar.bz2
 # (fc) 2.4.1-2mdk fix crash when /tmp is not readable
 Patch0:		ORBit2-2.14.4-tmpdir.patch
